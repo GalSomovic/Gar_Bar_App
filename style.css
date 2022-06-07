@@ -84,5 +84,8 @@ body {
 
 .log label{
     font-size: 25px;
+}
 
+.log label[id=gal_amount]{
+    font-size: 15px;
 }

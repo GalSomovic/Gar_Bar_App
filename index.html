@@ -19,42 +19,98 @@
             <input type="number" pattern="\d*" placeholder="enter how much gal spent" id="fgal" name="fgal">
             <button type="button" id="submit_gal">ADD</button>
             <br>
-            <br>
+            <br><br><br>
             <label for="fbar">bar spent:</label><br><br>
             <input type="number" pattern="\d*" placeholder="enter how much bar spent" id="fbar" name="fbar">
             <button type="button" id="submit_bar">ADD</button>
         </form>
+        <br>
+        <br>
+        <br>
+        <label id="gal_amount">Nothing happend since you logged in</label>
     </div>
 </div>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>-->
-<!--<script type="module">-->
-<!--    // Import the functions you need from the SDKs you need-->
-<!--    // import {initializeApp} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";-->
-<!--    // // https://firebase.google.com/docs/web/setup#available-libraries-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        child,
+        push,
+        update,
+        get
+    } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-<!--    // Your web app's Firebase configuration-->
-<!--    const firebaseConfig = {-->
-<!--        apiKey: "AIzaSyDQFsC4HP_c8toeKkOZzYRWTfnUXudLMXE",-->
-<!--        authDomain: "gal-and-bar-app.firebaseapp.com",-->
-<!--        databaseURL: "https://gal-and-bar-app-default-rtdb.europe-west1.firebasedatabase.app",-->
-<!--        projectId: "gal-and-bar-app",-->
-<!--        storageBucket: "gal-and-bar-app.appspot.com",-->
-<!--        messagingSenderId: "302627408397",-->
-<!--        appId: "1:302627408397:web:a85c8d6a990af434982344"-->
-<!--    };-->
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDQFsC4HP_c8toeKkOZzYRWTfnUXudLMXE",
+        authDomain: "gal-and-bar-app.firebaseapp.com",
+        databaseURL: "https://gal-and-bar-app-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "gal-and-bar-app",
+        storageBucket: "gal-and-bar-app.appspot.com",
+        messagingSenderId: "302627408397",
+        appId: "1:302627408397:web:0b3a48b400909b96982344"
+    };
 
-<!--    // Initialize Firebase-->
-<!--    // const app = initializeApp(firebaseConfig);-->
-<!--    // const contactfromDB = fireba-->
-<!--    firebase.initializeApp(firebaseConfig);-->
-<!--    var contactfromDB = firebase.database().ref("storage");-->
-<!--    document.getElementById("contactForm").addEventListener("submit_gal", submitFormGal);-->
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-<!--    function submitFormGal(e){-->
-<!--        e.preventDefault();-->
-<!--        window.alert("hi");-->
-<!--    }-->
-<!--</script>-->
-<script src="main.js"></script>
+    class Record {
+        constructor(person, amount) {
+            this.preson = person;
+            this.amount = amount;
+        }
+
+        submit() {
+            if (this.preson === 0) {
+                // A post entry.
+                const postData = {
+                    amount: this.amount
+                };
+
+                // Get a key for a new Post.
+                const newPostKey = push(child(ref(database), 'posts')).key;
+
+                // Write the new post's data simultaneously in the posts list and the user's post list.
+                const updates = {};
+                updates['/gals_debt/' + newPostKey] = postData;
+
+                update(ref(database), updates);
+
+                const dbRef = ref(getDatabase());
+                get(child(dbRef, `gals_debt/${newPostKey}/amount`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        document.getElementById("gal_amount").innerHTML = snapshot.val() + " was added to gal's Expenses";
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        }
+    }
+
+    document.getElementById('submit_gal').addEventListener('click', submitGal)
+    document.getElementById('submit_bar').addEventListener('click', submitBal)
+
+    function get_fd(id) {
+        return document.getElementById(id).value;
+    }
+
+    function submitGal() {
+        let fgal = get_fd('fgal');
+        const gal_rec = new Record(0, fgal);
+        gal_rec.submit();
+    }
+
+    function submitBal() {
+        console.log("bar")
+    }
+</script>
 </body>
 </html>
