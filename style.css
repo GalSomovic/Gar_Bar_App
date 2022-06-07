@@ -48,6 +48,19 @@ html, body {
     background: rebeccapurple;
 }
 
+.log button{
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    outline: none;
+    font-size: medium;
+    border: none;
+    color: #fff;
+    background: rebeccapurple;
+}
+
 .log label{
     font-size: 25px;
 

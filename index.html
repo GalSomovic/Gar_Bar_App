@@ -18,46 +18,44 @@
         <form class="main" style="margin: auto;" id="contactForm">
             <label for="fgal">gal spent:</label><br><br>
             <input type="number" pattern="\d*" placeholder="enter how much gal spent" id="fgal" name="fgal">
-            <input type="submit" onclick="get_gal_val()" value="ADD"><br>
+            <button type="button" id="submit_gal">ADD</button>
+            <br>
             <br>
             <label for="fbar">bar spent:</label><br><br>
             <input type="number" pattern="\d*" placeholder="enter how much bar spent" id="fbar" name="fbar">
-            <input type="submit" onclick="get_bar_val()" value="ADD">
-<!--            <script>-->
-<!--                function get_gal_val() {-->
-<!--                    let inputVal = document.getElementById("fgal").value;-->
-<!--                    let blob = new Blob([inputVal], {type: "number"});-->
-<!--                    saveAs(blob, "gal_d.txt");-->
-<!--                }-->
-<!--            </script>-->
+            <button type="button" id="submit_bar">ADD</button>
         </form>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    // import {initializeApp} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
-    // // TODO: Add SDKs for Firebase products that you want to use
-    // // https://firebase.google.com/docs/web/setup#available-libraries
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>-->
+<!--<script type="module">-->
+<!--    // Import the functions you need from the SDKs you need-->
+<!--    // import {initializeApp} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";-->
+<!--    // // https://firebase.google.com/docs/web/setup#available-libraries-->
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyDQFsC4HP_c8toeKkOZzYRWTfnUXudLMXE",
-        authDomain: "gal-and-bar-app.firebaseapp.com",
-        databaseURL: "https://gal-and-bar-app-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "gal-and-bar-app",
-        storageBucket: "gal-and-bar-app.appspot.com",
-        messagingSenderId: "302627408397",
-        appId: "1:302627408397:web:a85c8d6a990af434982344"
-    };
+<!--    // Your web app's Firebase configuration-->
+<!--    const firebaseConfig = {-->
+<!--        apiKey: "AIzaSyDQFsC4HP_c8toeKkOZzYRWTfnUXudLMXE",-->
+<!--        authDomain: "gal-and-bar-app.firebaseapp.com",-->
+<!--        databaseURL: "https://gal-and-bar-app-default-rtdb.europe-west1.firebasedatabase.app",-->
+<!--        projectId: "gal-and-bar-app",-->
+<!--        storageBucket: "gal-and-bar-app.appspot.com",-->
+<!--        messagingSenderId: "302627408397",-->
+<!--        appId: "1:302627408397:web:a85c8d6a990af434982344"-->
+<!--    };-->
 
-    // Initialize Firebase
-    // const app = initializeApp(firebaseConfig);
-    // const contactfromDB = fireba
-    firebase.initializeApp(firebaseConfig);
-    var contactfromDB = firebase.database().ref("storage");
+<!--    // Initialize Firebase-->
+<!--    // const app = initializeApp(firebaseConfig);-->
+<!--    // const contactfromDB = fireba-->
+<!--    firebase.initializeApp(firebaseConfig);-->
+<!--    var contactfromDB = firebase.database().ref("storage");-->
+<!--    document.getElementById("contactForm").addEventListener("submit_gal", submitFormGal);-->
 
-    document.getElementById("contactForm").addEventListener("submit", submitForm);
-</script>
+<!--    function submitFormGal(e){-->
+<!--        e.preventDefault();-->
+<!--        window.alert("hi");-->
+<!--    }-->
+<!--</script>-->
+<script src="main.js"></script>
 </body>
 </html>
