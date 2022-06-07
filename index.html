@@ -16,12 +16,12 @@
         <h1>Gal's and Bar's Website</h1>
         <form class="main" style="margin: auto;" id="contactForm">
             <label for="fgal">gal spent:</label><br><br>
-            <input type="number" pattern="\d*" placeholder="enter how much gal spent" id="fgal" name="fgal">
+            <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fgal" name="fgal">
             <button type="button" id="submit_gal">ADD</button>
             <br>
             <br><br><br>
             <label for="fbar">bar spent:</label><br><br>
-            <input type="number" pattern="\d*" placeholder="enter how much bar spent" id="fbar" name="fbar">
+            <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fbar" name="fbar">
             <button type="button" id="submit_bar">ADD</button>
         </form>
         <br>
@@ -92,6 +92,32 @@
                     console.error(error);
                 });
             }
+            else {
+                // A post entry.
+                const postData = {
+                    amount: this.amount
+                };
+
+                // Get a key for a new Post.
+                const newPostKey = push(child(ref(database), 'posts')).key;
+
+                // Write the new post's data simultaneously in the posts list and the user's post list.
+                const updates = {};
+                updates['/bars_debt/' + newPostKey] = postData;
+
+                update(ref(database), updates);
+
+                const dbRef = ref(getDatabase());
+                get(child(dbRef, `bars_debt/${newPostKey}/amount`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        document.getElementById("gal_amount").innerHTML = snapshot.val() + " was added to bar's Expenses";
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
         }
     }
 
@@ -104,12 +130,16 @@
 
     function submitGal() {
         let fgal = get_fd('fgal');
+        document.getElementById('fgal').value='0';
         const gal_rec = new Record(0, fgal);
         gal_rec.submit();
     }
 
     function submitBal() {
-        console.log("bar")
+        let fgal = get_fd('fbar');
+        document.getElementById('fbar').value='0';
+        const gal_rec = new Record(1, fgal);
+        gal_rec.submit();
     }
 </script>
 </body>
