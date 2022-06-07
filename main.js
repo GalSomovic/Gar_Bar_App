@@ -6,7 +6,8 @@ function get(id){
 }
 
 function submitGal(){
-    console.log("gal")
+    var gal_owe = get('fgal');
+    console.log(gal_owe)
 }
 
 function submitBal(){
