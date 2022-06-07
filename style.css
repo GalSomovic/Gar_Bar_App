@@ -4,6 +4,7 @@ html, body {
     width: 100%;
     height: 100%;
     background-image: linear-gradient(#ffc8fc, #a96bff);
+    font-family: "Arial", sans-serif;
 }
 
 .cot {
