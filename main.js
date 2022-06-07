@@ -5,10 +5,10 @@ function get(id){
     return document.getElementById(id).value;
 }
 
-// function submitGal(e){
-//     console.log("gal")
-// }
-//
-// function submitBal(e){
-//     console.log("bar")
-// }
+function submitGal(){
+    console.log("gal")
+}
+
+function submitBal(){
+    console.log("bar")
+}
