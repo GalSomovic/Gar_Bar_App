@@ -105,6 +105,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/bars_debt/'] = postData;
+                    updates['/logs_bar/' + newPostKey] = this.amount;
                     update(ref(database), updates);
                 });
             }
@@ -197,7 +198,14 @@
     function getlog() {
         const dbRef = ref(getDatabase());
         get(child(dbRef, `logs_gal`)).then((snapshot) => {
-            let str = "";
+            let str = "gal spent: \n";
+            for (const [key, value] of Object.entries(snapshot.val())) {
+                str+= value + '\n'
+            }
+            window.alert(str);
+        });
+        get(child(dbRef, `logs_bar`)).then((snapshot) => {
+            let str = "bar spent: \n";
             for (const [key, value] of Object.entries(snapshot.val())) {
                 str+= value + '\n'
             }
