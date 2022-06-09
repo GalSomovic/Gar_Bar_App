@@ -67,55 +67,40 @@
 
         submit() {
             if (this.preson === 0) {
-                // A post entry.
-                const postData = {
-                    amount: this.amount
-                };
-
-                // Get a key for a new Post.
-                const newPostKey = push(child(ref(database), 'posts')).key;
-
-                // Write the new post's data simultaneously in the posts list and the user's post list.
-                const updates = {};
-                updates['/gals_debt/' + newPostKey] = postData;
-
-                update(ref(database), updates);
-
+                var val = 0;
                 const dbRef = ref(getDatabase());
-                get(child(dbRef, `gals_debt/${newPostKey}/amount`)).then((snapshot) => {
+                get(child(dbRef, `gals_debt/amount`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                        document.getElementById("gal_amount").innerHTML = snapshot.val() + " was added to gal's Expenses";
+                        val = parseFloat(this.amount) + parseFloat(snapshot.val());
+
                     } else {
-                        console.log("No data available");
+                        val = parseFloat(this.amount);
                     }
-                }).catch((error) => {
-                    console.error(error);
+                    const postData = {
+                        amount: val
+                    };
+                    const newPostKey = push(child(ref(database), 'posts')).key;
+                    const updates = {};
+                    updates['/gals_debt/'] = postData;
+                    update(ref(database), updates);
                 });
-            }
-            else {
-                // A post entry.
-                const postData = {
-                    amount: this.amount
-                };
-
-                // Get a key for a new Post.
-                const newPostKey = push(child(ref(database), 'posts')).key;
-
-                // Write the new post's data simultaneously in the posts list and the user's post list.
-                const updates = {};
-                updates['/bars_debt/' + newPostKey] = postData;
-
-                update(ref(database), updates);
-
+            } else {
+                var val = 0;
                 const dbRef = ref(getDatabase());
-                get(child(dbRef, `bars_debt/${newPostKey}/amount`)).then((snapshot) => {
+                get(child(dbRef, `bars_debt/amount`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                        document.getElementById("gal_amount").innerHTML = snapshot.val() + " was added to bar's Expenses";
+                        val = parseFloat(this.amount) + parseFloat(snapshot.val());
+
                     } else {
-                        console.log("No data available");
+                        val = parseFloat(this.amount);
                     }
-                }).catch((error) => {
-                    console.error(error);
+                    const postData = {
+                        amount: val
+                    };
+                    const newPostKey = push(child(ref(database), 'posts')).key;
+                    const updates = {};
+                    updates['/bars_debt/'] = postData;
+                    update(ref(database), updates);
                 });
             }
         }
@@ -130,14 +115,14 @@
 
     function submitGal() {
         let fgal = get_fd('fgal');
-        document.getElementById('fgal').value='0';
+        document.getElementById('fgal').value = '0';
         const gal_rec = new Record(0, fgal);
         gal_rec.submit();
     }
 
     function submitBal() {
         let fgal = get_fd('fbar');
-        document.getElementById('fbar').value='0';
+        document.getElementById('fbar').value = '0';
         const gal_rec = new Record(1, fgal);
         gal_rec.submit();
     }
