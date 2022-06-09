@@ -86,6 +86,10 @@ body {
     font-size: 25px;
 }
 
-.log label[id=gal_amount]{
+.log label[id=updates_log]{
     font-size: 15px;
+}
+
+.log button[id=info]{
+    width: 50%;
 }

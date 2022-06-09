@@ -27,7 +27,10 @@
         <br>
         <br>
         <br>
-        <label id="gal_amount">Nothing happend since you logged in</label>
+        <label id="updates_log">Nothing happend since you logged in</label>
+        <br>
+        <br>
+        <button id="info">get info</button>
     </div>
 </div>
 <script type="module">
@@ -106,11 +109,63 @@
         }
     }
 
-    document.getElementById('submit_gal').addEventListener('click', submitGal)
-    document.getElementById('submit_bar').addEventListener('click', submitBal)
+    document.getElementById('submit_gal').addEventListener('click', submitGal);
+    document.getElementById('submit_bar').addEventListener('click', submitBal);
+    document.getElementById('info').addEventListener('click', update_det);
 
     function get_fd(id) {
         return document.getElementById(id).value;
+    }
+
+    // function update_det() {
+    //     const dbRef = ref(getDatabase());
+    //     get(child(dbRef, `bars_debt/amount`)).then((bar_d) => {
+    //         if (bar_d.exists()) {
+    //             get(child(dbRef, `gal_debt/amount`)).then((gal_d) => {
+    //                 if (gal_d.exists()) {
+    //                     if ((bar_d.val()) > (gal_d.val())) {
+    //                         let sum_per_person = ((bar_d.val()) + (gal_d.val())) / 2;
+    //                         let gal_deb = sum_per_person - (gal_d.val());
+    //                         document.getElementById('updates_log').innerHTML = "gal owes bar " + gal_deb;
+    //                     } else if ((gal_d.val()) > (bar_d.val())) {
+    //                         let sum_per_person = ((bar_d.val()) + (gal_d.val())) / 2;
+    //                         let bar_deb = sum_per_person - (bar_d.val());
+    //                         document.getElementById('updates_log').innerHTML = "bar owes gal " + bar_deb;
+    //                     } else {
+    //                         document.getElementById('updates_log').innerHTML = "you are equal";
+    //                     }
+    //                 } else {
+    //                     let sum_per_person = ((bar_d.val())) / 2;
+    //                     document.getElementById('updates_log').innerHTML = "gal owes bar " + sum_per_person;
+    //                 }
+    //             });
+    //         } else {
+    //             get(child(dbRef, `bars_debt/amount`)).then((gal_d) => {
+    //                 let sum_per_person = ((gal_d.val())) / 2;
+    //                 document.getElementById('updates_log').innerHTML = "bar owes gal " + sum_per_person;
+    //             });
+    //         }
+    //     });
+    // }
+    function update_det() {
+        const dbRef = ref(getDatabase());
+        const newPostKey = push(child(ref(database), 'posts')).key;
+        get(child(dbRef, `bars_debt/amount`)).then((bar_d) => {
+            get(child(dbRef, `gals_debt/amount`)).then((gal_d) => {
+                console.log(bar_d.val());
+                console.log(gal_d.val());
+                let spent_sum = (gal_d.val() + bar_d.val()) / 2;
+                if (gal_d.val() > bar_d.val()) {
+                    let temp1 = spent_sum - bar_d.val();
+                    document.getElementById('updates_log').innerHTML = "bar owes gal " + temp1;
+                } else if (bar_d.val() > gal_d.val()) {
+                    let temp2 = spent_sum - gal_d.val();
+                    document.getElementById('updates_log').innerHTML = "gal owes bar " + temp2;
+                } else {
+                    document.getElementById('updates_log').innerHTML = "you are even";
+                }
+            });
+        });
     }
 
     function submitGal() {
@@ -118,6 +173,10 @@
         document.getElementById('fgal').value = '0';
         const gal_rec = new Record(0, fgal);
         gal_rec.submit();
+        let i = 0;
+        while (i < 5) {
+            i++;
+        }
     }
 
     function submitBal() {
@@ -125,7 +184,12 @@
         document.getElementById('fbar').value = '0';
         const gal_rec = new Record(1, fgal);
         gal_rec.submit();
+        let i = 0;
+        while (i < 5) {
+            i++;
+        }
     }
+
 </script>
 </body>
 </html>
