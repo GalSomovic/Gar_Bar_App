@@ -92,4 +92,10 @@ body {
 
 .log button[id=info]{
     width: 50%;
+    margin-bottom: 10px;
+}
+
+.log button[id=info_log]{
+    width: 50%;
+    margin-bottom: 10px;
 }

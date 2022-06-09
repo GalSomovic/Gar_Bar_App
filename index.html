@@ -31,6 +31,7 @@
         <br>
         <br>
         <button id="info">get info</button>
+        <button id="info_log">get spent log</button>
     </div>
 </div>
 <script type="module">
@@ -85,6 +86,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/gals_debt/'] = postData;
+                    updates['/logs_gal/' + newPostKey] = this.amount;
                     update(ref(database), updates);
                 });
             } else {
@@ -112,6 +114,7 @@
     document.getElementById('submit_gal').addEventListener('click', submitGal);
     document.getElementById('submit_bar').addEventListener('click', submitBal);
     document.getElementById('info').addEventListener('click', update_det);
+    document.getElementById('info_log').addEventListener('click', getlog);
 
     function get_fd(id) {
         return document.getElementById(id).value;
@@ -147,6 +150,7 @@
     //         }
     //     });
     // }
+
     function update_det() {
         const dbRef = ref(getDatabase());
         const newPostKey = push(child(ref(database), 'posts')).key;
@@ -188,6 +192,17 @@
         while (i < 5) {
             i++;
         }
+    }
+
+    function getlog() {
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `logs_gal`)).then((snapshot) => {
+            let str = "";
+            for (const [key, value] of Object.entries(snapshot.val())) {
+                str+= value + '\n'
+            }
+            window.alert(str);
+        });
     }
 
 </script>
