@@ -17,17 +17,19 @@
         <form class="main" style="margin: auto;" id="contactForm">
             <label for="fgal">gal spent:</label><br><br>
             <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fgal" name="fgal">
+            <input type="text" onfocus="this.value=''" value="spent on?" id="tgal" name="tgal">
             <button type="button" id="submit_gal">ADD</button>
             <br>
             <br><br><br>
             <label for="fbar">bar spent:</label><br><br>
             <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fbar" name="fbar">
+            <input type="text" onfocus="this.value=''" value="spent on?" id="tbar" name="tbar">
             <button type="button" id="submit_bar">ADD</button>
         </form>
         <br>
         <br>
         <br>
-        <label id="updates_log">Nothing happend since you logged in</label>
+        <label id="updates_log">click "get info"</label>
         <br>
         <br>
         <button id="info">get info</button>
@@ -64,9 +66,10 @@
     const database = getDatabase(app);
 
     class Record {
-        constructor(person, amount) {
+        constructor(person, amount,text) {
             this.preson = person;
             this.amount = amount;
+            this.text = text;
         }
 
         submit() {
@@ -86,7 +89,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/gals_debt/'] = postData;
-                    updates['/logs_gal/' + newPostKey] = this.amount;
+                    updates['/logs_gal/' + newPostKey] = this.amount + " spent on " + this.text;
                     update(ref(database), updates);
                 });
             } else {
@@ -105,7 +108,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/bars_debt/'] = postData;
-                    updates['/logs_bar/' + newPostKey] = this.amount;
+                    updates['/logs_bar/' + newPostKey] = this.amount+ " spent on " + this.text;
                     update(ref(database), updates);
                 });
             }
@@ -175,8 +178,10 @@
 
     function submitGal() {
         let fgal = get_fd('fgal');
+        let tgal = get_fd('tgal')
         document.getElementById('fgal').value = '0';
-        const gal_rec = new Record(0, fgal);
+        document.getElementById('fgal').value = 'spent on?';
+        const gal_rec = new Record(0, fgal,tgal);
         gal_rec.submit();
         let i = 0;
         while (i < 5) {
@@ -186,8 +191,10 @@
 
     function submitBal() {
         let fgal = get_fd('fbar');
+        let tgal = get_fd('tbar');
         document.getElementById('fbar').value = '0';
-        const gal_rec = new Record(1, fgal);
+        document.getElementById('tbar').value = 'spent on?';
+        const gal_rec = new Record(1, fgal, tgal);
         gal_rec.submit();
         let i = 0;
         while (i < 5) {
