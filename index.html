@@ -72,6 +72,7 @@
         }
 
         submit() {
+            const d = new Date();
             if (this.preson === 0) {
                 var val = 0;
                 const dbRef = ref(getDatabase());
@@ -88,7 +89,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/gals_debt/'] = postData;
-                    updates['/logs_gal/' + newPostKey] = this.amount + " spent on " + this.text;
+                    updates['/logs_gal/' + newPostKey] = this.amount + " ₪  |  " + this.text +"  |  " + d.getDate() +"/"+d.getMonth()+"/"+d.getFullYear();
                     update(ref(database), updates);
                 });
             } else {
@@ -107,7 +108,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/bars_debt/'] = postData;
-                    updates['/logs_bar/' + newPostKey] = this.amount+ " spent on " + this.text;
+                    updates['/logs_bar/' + newPostKey] = this.amount+ " ₪  |  " + this.text +"  |  " + d.getDate() +"/"+d.getMonth()+"/"+d.getFullYear();
                     update(ref(database), updates);
                 });
             }
