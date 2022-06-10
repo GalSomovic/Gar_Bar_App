@@ -16,13 +16,13 @@
         <h1>Expensesify</h1>
         <form class="main" style="margin: auto;" id="contactForm">
             <label for="fgal">Gal spent:</label><br><br>
-            <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fgal" name="fgal">
+            <input type="number" pattern="/^(\d+(\.\d+)?)$/" onfocus="this.value=''" value="0" id="fgal" name="fgal">
             <input type="text" onfocus="this.value=''" value="spent on?" id="tgal" name="tgal">
             <button type="button" id="submit_gal">ADD</button>
             <br>
             <br><br><br>
             <label for="fbar">Bar spent:</label><br><br>
-            <input type="number" pattern="\d*" onfocus="this.value=''" value="0" id="fbar" name="fbar">
+            <input type="number" pattern="/^(\d+(\.\d+)?)$/" onfocus="this.value=''" value="0" id="fbar" name="fbar">
             <input type="text" onfocus="this.value=''" value="spent on?" id="tbar" name="tbar">
             <button type="button" id="submit_bar">ADD</button>
         </form>
