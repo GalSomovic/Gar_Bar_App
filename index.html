@@ -28,11 +28,11 @@
             <button type="button" id="submit_bar">ADD</button>
         </form>
         <br>
-        <label id="updates_log">click "Calculate"</label>
+        <label id="updates_log">click "Calculate" when you're done</label>
         <br>
         <br>
         <button id="info">Calculate</button>
-        <button id="info_log">get spent log</button>
+        <button id="info_log">Get log</button>
     </div>
 </div>
 <script type="module">
@@ -165,12 +165,12 @@
                 let spent_sum = (gal_d.val() + bar_d.val()) / 2;
                 if (gal_d.val() > bar_d.val()) {
                     let temp1 = spent_sum - bar_d.val();
-                    document.getElementById('updates_log').innerHTML = "bar owes gal " + temp1;
+                    document.getElementById('updates_log').innerHTML = "Bar owes Gal: " + temp1;
                 } else if (bar_d.val() > gal_d.val()) {
                     let temp2 = spent_sum - gal_d.val();
-                    document.getElementById('updates_log').innerHTML = "gal owes bar " + temp2;
+                    document.getElementById('updates_log').innerHTML = "Gal owes Bar:" + temp2;
                 } else {
-                    document.getElementById('updates_log').innerHTML = "you are even";
+                    document.getElementById('updates_log').innerHTML = "!אתם פיטים";
                 }
             });
         });
