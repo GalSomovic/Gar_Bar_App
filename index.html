@@ -65,7 +65,7 @@
     const database = getDatabase(app);
 
     class Record {
-        constructor(person, amount,text) {
+        constructor(person, amount, text) {
             this.preson = person;
             this.amount = amount;
             this.text = text;
@@ -89,7 +89,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/gals_debt/'] = postData;
-                    updates['/logs_gal/' + newPostKey] = this.amount + " ₪  •  " + this.text +"  •  " + d.getDate() +"/"+d.getMonth()+"/"+d.getFullYear();
+                    updates['/logs_gal/' + newPostKey] = this.amount + " ₪  •  " + this.text + "  •  " + d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
                     update(ref(database), updates);
                 });
             } else {
@@ -108,7 +108,7 @@
                     const newPostKey = push(child(ref(database), 'posts')).key;
                     const updates = {};
                     updates['/bars_debt/'] = postData;
-                    updates['/logs_bar/' + newPostKey] = this.amount+ " ₪  •  " + this.text +"  •  " + d.getDate() +"/"+d.getMonth()+"/"+d.getFullYear();
+                    updates['/logs_bar/' + newPostKey] = this.amount + " ₪  •  " + this.text + "  •  " + d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
                     update(ref(database), updates);
                 });
             }
@@ -165,10 +165,10 @@
                 let spent_sum = (gal_d.val() + bar_d.val()) / 2;
                 if (gal_d.val() > bar_d.val()) {
                     let temp1 = spent_sum - bar_d.val();
-                    document.getElementById('updates_log').innerHTML = "Bar owes Gal: " + temp1;
+                    document.getElementById('updates_log').innerHTML = temp1.toFixed(2) + "בר חייבת לגל ";
                 } else if (bar_d.val() > gal_d.val()) {
                     let temp2 = spent_sum - gal_d.val();
-                    document.getElementById('updates_log').innerHTML = "Gal owes Bar: " + temp2;
+                    document.getElementById('updates_log').innerHTML = temp2.toFixed(2) + "גל חייב לבר ";
                 } else {
                     document.getElementById('updates_log').innerHTML = "!אתם פיטים";
                 }
@@ -181,7 +181,7 @@
         let tgal = get_fd('tgal')
         document.getElementById('fgal').value = '0';
         document.getElementById('tgal').value = 'spent on?';
-        const gal_rec = new Record(0, fgal,tgal);
+        const gal_rec = new Record(0, fgal, tgal);
         gal_rec.submit();
         let i = 0;
         while (i < 5) {
@@ -207,14 +207,14 @@
         get(child(dbRef, `logs_gal`)).then((snapshot) => {
             let str = "gal spent: \n";
             for (const [key, value] of Object.entries(snapshot.val())) {
-                str+= value + '\n'
+                str += value + '\n'
             }
             window.alert(str);
         });
         get(child(dbRef, `logs_bar`)).then((snapshot) => {
             let str = "bar spent: \n";
             for (const [key, value] of Object.entries(snapshot.val())) {
-                str+= value + '\n'
+                str += value + '\n'
             }
             window.alert(str);
         });
