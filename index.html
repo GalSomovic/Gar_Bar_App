@@ -165,10 +165,10 @@
                 let spent_sum = (gal_d.val() + bar_d.val()) / 2;
                 if (gal_d.val() > bar_d.val()) {
                     let temp1 = spent_sum - bar_d.val();
-                    document.getElementById('updates_log').innerHTML = temp1.toFixed(2) + "בר חייבת לגל ";
+                    document.getElementById('updates_log').innerHTML = temp1.toFixed(2) + " :בר חייבת לגל";
                 } else if (bar_d.val() > gal_d.val()) {
                     let temp2 = spent_sum - gal_d.val();
-                    document.getElementById('updates_log').innerHTML = temp2.toFixed(2) + "גל חייב לבר ";
+                    document.getElementById('updates_log').innerHTML = temp2.toFixed(2) + " :גל חייב לבר";
                 } else {
                     document.getElementById('updates_log').innerHTML = "!אתם פיטים";
                 }
