@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="msc-style.css">
     <meta charset="UTF-8">
     <title>Gal and Bar App</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,6 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="ffc8fc">
     <!--    <link rel="apple-touch-icon" href="/custom_icon.png">-->
     <link href="style.css" rel="stylesheet">
+    <script src="msc-script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <div class="cot">
@@ -204,19 +207,35 @@
     function getlog() {
         const dbRef = ref(getDatabase());
         get(child(dbRef, `logs_gal`)).then((snapshot) => {
-            let str = "gal spent: \n";
+            let str1 = "";
             for (const [key, value] of Object.entries(snapshot.val())) {
-                str += value + '\n'
+                str1 += value + '\n'
             }
-            window.alert(str);
+            // window.alert(str);
+            // mscAlert(str);
+            // swal(str).then;
+            // let newWin = window.open("about:blank", "hello", "width=200,height=200");
+            // newWin.document.write(str)
+            // newWin.document.close()
+            get(child(dbRef, `logs_bar`)).then((snapshot) => {
+                let str = "";
+                for (const [key, value] of Object.entries(snapshot.val())) {
+                    str += value + '\n'
+                }
+                // window.alert(str);
+                // swal(str);
+                swal("gal spent:",str1).then(() => {swal("bar spent:",str)});
+            });
         });
-        get(child(dbRef, `logs_bar`)).then((snapshot) => {
-            let str = "bar spent: \n";
-            for (const [key, value] of Object.entries(snapshot.val())) {
-                str += value + '\n'
-            }
-            window.alert(str);
-        });
+        // get(child(dbRef, `logs_bar`)).then((snapshot) => {
+        //     let str = "bar spent: \n";
+        //     for (const [key, value] of Object.entries(snapshot.val())) {
+        //         str += value + '\n'
+        //     }
+        //     // window.alert(str);
+        //     // swal(str);
+        //     swal(str1).then(() => {swal(str)});
+        // });
     }
 
 </script>
